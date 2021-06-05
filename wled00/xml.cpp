@@ -1,5 +1,11 @@
 #include "wled.h"
 
+// <CUSTOM>
+#include <bits/stdc++.h> 
+using namespace std; 
+#include <ESP8266WiFi.h>
+// </CUSTOM>
+
 /*
  * Sending XML status files to client
  */
@@ -70,7 +76,18 @@ void XML_response(AsyncWebServerRequest *request, char* dest)
   }
   oappend(SET_F("</ds><ss>"));
   oappendi(strip.getMainSegmentId());
-  oappend(SET_F("</ss></vs>"));
+  
+  // <CUSTOM>
+  oappend(SET_F("</ss><mc>"));
+  String mac = WiFi.macAddress();
+  oappend(mac.c_str());
+  oappend(SET_F("</mc><he>"));
+  String he = "heinrichs_engineering_led_tower";
+  oappend(he.c_str());
+  oappend(SET_F("</he></vs>")); 
+  // </CUSTOM>
+
+  //oappend(SET_F("</ss></vs>"));
   if (request != nullptr) request->send(200, "text/xml", obuf);
 }
 
