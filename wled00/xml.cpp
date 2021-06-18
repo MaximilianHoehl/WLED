@@ -84,7 +84,11 @@ void XML_response(AsyncWebServerRequest *request, char* dest)
   oappend(SET_F("</mc><he>"));
   String he = "heinrichs_engineering_led_tower";
   oappend(he.c_str());
-  oappend(SET_F("</he></vs>")); 
+  oappend(SET_F("</he><lip>"));
+  IPAddress localIP = WiFi.localIP();
+  String str_localIP = localIP.toString();
+  oappend(str_localIP.c_str());
+  oappend(SET_F("</lip></vs>")); 
   // </CUSTOM>
 
   //oappend(SET_F("</ss></vs>"));
